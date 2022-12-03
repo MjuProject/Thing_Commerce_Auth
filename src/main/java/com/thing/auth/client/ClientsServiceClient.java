@@ -14,7 +14,6 @@ public interface ClientsServiceClient {
     @GetMapping(value = "/clients/id/{client-id}", produces = "application/json")
     APIResponseDTO<LoginInfoDTO> showClientById(@PathVariable("client-id") String clientId);
 
-
     @PostMapping("/clients")
     void registryClient(SignupRequestDTO signupRequestDTO);
 }

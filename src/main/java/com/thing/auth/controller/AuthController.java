@@ -5,10 +5,7 @@ import com.thing.auth.dto.LoginRequestDTO;
 import com.thing.auth.dto.SignupRequestDTO;
 import com.thing.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -26,6 +23,11 @@ public class AuthController {
     public APIResponseDTO signup(@RequestBody SignupRequestDTO signupRequestDTO){
         authService.signup(signupRequestDTO);
         return APIResponseDTO.success();
+    }
+
+    @PostMapping(value = "/valid")
+    public APIResponseDTO valid(@RequestParam String token){
+        return APIResponseDTO.success(authService.valid(token));
     }
 
 }

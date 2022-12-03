@@ -46,6 +46,14 @@ public class JwtTokenProvider {
         }
     }
 
+    public Map<String, String> getUserInfo(String token){
+        Map<String, String> userInfo = new HashMap<>();
+        Claims claims = getTokenClaims(token).getBody();
+        userInfo.put("clientIdx", claims.getSubject());
+        userInfo.put("role", claims.get("role").toString());
+        return userInfo;
+    }
+
     // 토큰 속성 정보 추출
     private Jws<Claims> getTokenClaims(String token){
         try {

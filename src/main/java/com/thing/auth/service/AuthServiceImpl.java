@@ -6,9 +6,12 @@ import com.thing.auth.dto.LoginInfoDTO;
 import com.thing.auth.dto.LoginRequestDTO;
 import com.thing.auth.dto.SignupRequestDTO;
 import com.thing.auth.exception.PasswordMisMatchException;
+import com.thing.auth.exception.TokenNotValidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -32,4 +35,11 @@ public class AuthServiceImpl implements AuthService{
         signupRequestDTO.encodePassword(passwordEncoder);
         clientsServiceClient.registryClient(signupRequestDTO);
     }
+
+    @Override
+    public Map<String, String> valid(String token) {
+        if(!jwtTokenProvider.validateToken(token)) throw new TokenNotValidException();
+        return jwtTokenProvider.getUserInfo(token);
+    }
+
 }
