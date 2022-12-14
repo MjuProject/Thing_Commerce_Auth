@@ -14,6 +14,11 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @GetMapping(value = "/health")
+    public APIResponseDTO login(){
+        return APIResponseDTO.success("Success");
+    }
+
     @PostMapping(value = "/login")
     public APIResponseDTO login(@RequestBody LoginRequestDTO loginRequestDTO){
         return APIResponseDTO.success(authService.login(loginRequestDTO));
